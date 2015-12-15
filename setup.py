@@ -28,7 +28,7 @@ setup(
     description="An Engine that rupits RoShamBo bots against each other",
     long_description=readme + '\n\n' + changelog,
     author="Jeffery Tillotson",
-    author_email='jeffery.tillotson@equifax.com',
+    author_email='jeffx@jeffx.com',
     url='http://sdlc.devcentral.equifax.com/stash/users/jxt131/repos/python_roshambo_runner/python_roshambo_runner',
     packages=[
         'python_roshambo_runner',
