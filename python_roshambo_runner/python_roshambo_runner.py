@@ -7,10 +7,14 @@ from bots import *
 
 ROUNDS = 1000
 
+
 class RoShamBo():
     def __init__(self):
         self.bots = []
+        self.result_table = PrettyTable(["Bot Name", "Hand Total", "Losses",
+                                         "Ties", "Wins", "Score"])
         self._load_bots()
+        self._setup_table()
 
     def _load_bots(self):
         bots = [key for key in sys.modules.keys() if key.startswith("bots.")]
@@ -24,6 +28,17 @@ class RoShamBo():
             bot['losses'] = []
             bot['ties'] = []
             self.bots.append(bot)
+
+    def _setup_table(self):
+        self.result_table.align['Bot Name'] = 'l'
+        self.result_table.padding_width = 1
+
+    def generate_results(self):
+        results = sorted(self.bots, key=lambda k: k['score'], reverse=True)
+        for bot in results:
+            self.result_table.add_row([bot['name'], bot['totalhands'],
+                                      len(bot['losses']), len(bot['ties']),
+                                      len(bot['wins']), bot['score']])
 
     def run_match(self, player1, player2):
         player1_score = 0
@@ -77,16 +92,6 @@ class RoShamBo():
                     return False  # should never get here
         for bot in self.bots:
             bot['score'] = (len(bot['wins']) * 2) + len(bot['ties'])
-        results = sorted(self.bots, key=lambda k: k['score'], reverse=True)
-        result_table = PrettyTable(["Bot Name", "Hand Total", "Losses",
-                                    "Ties", "Wins", "Score"])
-        result_table.align['Bot Name'] = 'l'
-        result_table.padding_width = 1
-        for bot in results:
-            result_table.add_row([bot['name'], bot['totalhands'],
-                                  len(bot['losses']), len(bot['ties']),
-                                  len(bot['wins']), bot['score']])
-        print(result_table)
 
     def compare_hand(self, p1, p2):
         if p1 == p2:
