@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 import sys
-import types
 
 from prettytable import PrettyTable
 
