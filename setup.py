@@ -32,6 +32,7 @@ setup(
     url='https://github.com/jeffx/python_roshambo_runner',
     packages=[
         'python_roshambo_runner',
+        'bots'
     ],
     package_dir={'python_roshambo_runner':
                  'python_roshambo_runner'},
