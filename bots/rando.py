@@ -4,5 +4,5 @@ __botname__ = "Rando"
 __entryfunction__ = "rando"
 
 
-def rando(opponent=None):
-    return random.randrange(0, 2 + 1)
+def rndo(opponent=None):
+    return random.randrange(0, 3)

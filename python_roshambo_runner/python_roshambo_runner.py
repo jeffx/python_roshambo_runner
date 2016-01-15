@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import sys
+import random
 
 from prettytable import PrettyTable
 
@@ -100,3 +101,35 @@ class RoShamBo():
             return 1
         else:
             return 2
+
+    @classmethod
+    def test_bots(self):
+        bots = [key for key in sys.modules.keys() if key.startswith("bots.")]
+        for b in bots:
+            try:
+                function_name = sys.modules[b].__entryfunction__
+            except:
+                print("{} failed: no __entryfunction__")
+
+            bot = {}
+            try:
+                bot['name'] = sys.modules[b].__botname__
+            except:
+                print("{} failed: no __botname__".format(b))
+
+            try:
+                bot['function'] = getattr(sys.modules[b], function_name)
+            except:
+                print("{} failed: no function_name".format(b))
+
+            test_array = []
+            try:
+                bot['function'](test_array)
+            except:
+                print("{} failed: zero length array".format(b))
+
+            test_array = [random.randrange(0, 3) for _ in range(1000)]
+            try:
+                bot['function'](test_array)
+            except:
+                print("{} failed: full length array".format(b))
